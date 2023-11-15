@@ -13,13 +13,41 @@ const repeatedWords = [
   "matter"
 ];
 
-function howManyTimes() {}
+function howManyTimes(wordsArr, wordToSearch) {
+  // Create a counter variable to store the number of times the word appears in the array
+  let counter = 0;
+
+  // Loop through the array and compare each word in the array with the word to search
+  for (let i = 0; i < wordsArr.length; i++) {
+    // If the word is found, increase the counter by 1
+    if (wordsArr[i] === wordToSearch) {
+      counter++;
+    }
+  }
+
+  return counter;
+}
 
 
 
 
 // Iteration 2 | Number Sequence
-function createSequence() {}
+function createSequence(num) {
+  // Create an array to store the numbers in the sequence from 0 to `num`
+  let sequence = [];
+
+  // If `num` is 0, return an empty array and exit the function
+  if (num === 0) {
+    return sequence;
+  }
+
+  // If `num` is greater than 0, create the sequence
+  for (let i = 0; i <= num; i++) {
+    sequence.push(i);
+  }
+
+  return sequence;
+}
 
 
 
@@ -27,7 +55,19 @@ function createSequence() {}
 // Iteration 3 | Multiply for Each
 const numbers = [1, 2, 5, 10, 13, 50];
 
-function multiplyBy() {}
+function multiplyBy(numbersArr, multiplier) {
+  // Create an array to store the multiplied numbers
+  let multipliedNumbers = [];
+
+  // Loop through the array using the forEach() method
+  numbersArr.forEach(function (number) {
+    // Multiply each number by the multiplier and push it to the new array
+    const multipliedNumber = number * multiplier;
+    multipliedNumbers.push(multipliedNumber);
+  });
+
+  return multipliedNumbers;
+}
 
 
 
@@ -36,7 +76,32 @@ function multiplyBy() {}
 const original = ["cat", "dog", "fish", "bird", "cat", "fish"];
 const toRemove = ["cat", "dog"];
 
-function filterOut() {}
+function filterOut(originalArr, toRemoveArr) {
+  // If the original array is empty, return `null` and exit the function
+  if (originalArr.length === 0) {
+    return null;
+  }
+
+  // Create an array to store the filtered words
+  const filteredWords = [];
+
+  // Loop through the original array using the forEach() method
+  originalArr.forEach(function (word) {
+    // If the word is not included in the toRemove array, push it to the new array
+    if (!toRemoveArr.includes(word)) {
+      filteredWords.push(word);
+    }
+  });
+
+  /* OR a simpler way using the for loop: */
+  // for (let i = 0; i < originalArr.length; i++) {
+  //   if (!toRemoveArr.includes(originalArr[i])) {
+  //     filteredWords.push(originalArr[i]);
+  //   }
+  // }
+
+  return filteredWords;
+}
 
 
 
@@ -56,7 +121,38 @@ const duplicateWords = [
   "bring"
 ];
 
-function uniquifyArray() {}
+function uniquifyArray (words) {
+  if (words.length === 0) {
+    return null;
+  }
+
+
+  let uniqueArr = [];
+  //   for (let i = 0; i < words.length; i++) {
+  //     let word = words[i];
+  //   }
+
+  for (let i = 0; i < words.length; i++) {
+    const word = words[i];
+    if (!uniqueArr.includes(word)) uniqueArr.push(word);
+
+    /* 
+    the other way doing the same as above:
+    - indexOf() => returns 1 (true) if the word already exists in the array
+    - indexOf() => returns -1 (false) if the word doesn't exist in the array
+    */
+    // if (uniqueArr.indexOf(word) < 0) {
+    //   uniqueArr.push(word);
+    // }
+
+  }    
+
+  return uniqueArr;
+};
+
+// uniquifyArray(duplicatedWords)
+
+// const uniquifyArray = words => [ ...new Set(words) ];
 
 
 
@@ -85,4 +181,36 @@ const matrix = [
   [1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 48]
 ];
 
-function greatestProduct() {}
+function greatestProduct(matrix) {
+  let product = 0;
+
+  const numberOfRows = matrix.length;
+  const numberOfColumns = matrix[0].length;
+
+  // console.log(numberOfRows);
+  // console.log(numberOfColumns)
+
+  for (let i = 0; i < numberOfRows; i++) {
+    let row = matrix[i];
+    for (let e = 0; e < numberOfColumns - 3; e++) {
+      // 0 - 1 - 2 - 3
+      // 1 - 2 - 3 - 4
+      let rowProduct = row[e] * row[e + 1] * row[e + 2] * row[e + 3];
+      if (rowProduct > product) {
+        product = rowProduct;
+      }
+    }
+  }
+
+  for (let i = 0; i < numberOfColumns; i++) {
+    for (let e = 0; e < numberOfRows - 3; e++) {
+      let columnProduct =
+        matrix[e][i] * matrix[e + 1][i] * matrix[e + 2][i] * matrix[e + 3][i];
+      if (columnProduct > product) {
+        product = columnProduct;
+      }
+    }
+  }
+
+  return product;
+};
